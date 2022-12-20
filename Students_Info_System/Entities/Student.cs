@@ -15,11 +15,21 @@ namespace Students_Info_System.Entities
         public DateTime DateOfBirth { get; set; }
 
         [ForeignKey("Departament")]
-        public int DepartamentId { get; set; } 
+        public int DepartamentId { get; set; }
 
-        public Student ()
+        public Student()
+        {
+        }
+
+
+        public Student (int id, string name, string surname, DateTime dateOfBirth)
         {
 
+                this.Id = id;
+                this.Name = name;
+                this.Surname = surname;
+                this.DateOfBirth = dateOfBirth;
+
         }
-    }
+        }
 }

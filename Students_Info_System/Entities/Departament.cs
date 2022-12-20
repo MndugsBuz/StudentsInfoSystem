@@ -18,6 +18,14 @@ namespace Students_Info_System.Entities
         public Departament ()
         {
         }
-         
+
+        public Departament(int id, string name, string city, string address)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.City = city;
+            this.Address = address; 
+        }
+
     }
 }
