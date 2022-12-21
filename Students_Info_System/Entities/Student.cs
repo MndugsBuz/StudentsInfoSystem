@@ -17,19 +17,17 @@ namespace Students_Info_System.Entities
         [ForeignKey("Departament")]
         public int DepartamentId { get; set; }
 
+        public Departament Departament { get; set; }
+
         public Student()
         {
         }
-
-
-        public Student (int id, string name, string surname, DateTime dateOfBirth)
+        public Student (string name, string surname, DateTime dateOfBirth)
         {
-
-                this.Id = id;
+                this.Id = Id; 
                 this.Name = name;
                 this.Surname = surname;
                 this.DateOfBirth = dateOfBirth;
-
         }
         }
 }

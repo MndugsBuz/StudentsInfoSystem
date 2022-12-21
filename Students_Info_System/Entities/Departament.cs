@@ -19,12 +19,14 @@ namespace Students_Info_System.Entities
         {
         }
 
-        public Departament(int id, string name, string city, string address)
+        public Departament(string name, string city, string address)
         {
-            this.Id = id;
+            this.Id = Id;
             this.Name = name;
             this.City = city;
             this.Address = address; 
+            Students = new List<Student> ();
+            Lectures = new List<Lecture> ();
         }
 
     }
