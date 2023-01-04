@@ -24,10 +24,10 @@ namespace Students_Info_System.Entities
         }
         public Student (string name, string surname, DateTime dateOfBirth)
         {
-                this.Id = Id; 
                 this.Name = name;
                 this.Surname = surname;
                 this.DateOfBirth = dateOfBirth;
+                
         }
         }
 }

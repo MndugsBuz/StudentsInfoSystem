@@ -25,8 +25,8 @@ namespace Students_Info_System.Entities
             this.Name = name;
             this.City = city;
             this.Address = address; 
-            Students = new List<Student> ();
-            Lectures = new List<Lecture> ();
+            this.Students = new List<Student>();
+            this.Lectures = new List<Lecture>();
         }
 
     }
