@@ -12,25 +12,28 @@ Console.WriteLine("Hello, World!");
 
 var dbContext = new DepartamentContext();
 
-/*
-var departament1 = new Departament { Name = "Informatikos fakultetas", City = "Kaunas", Address = "Studentų g. 50-412" };
+void CreateNewDepartament ()
+{
+    
+    var departament1 = new Departament { Name = "Informatikos fakultetas", City = "Vilnius", Address = "Absolventų g. 50" };
+    departament1.Lectures = new List<Lecture>();
+    departament1.Students = new List<Student>();
 
-departament1.Lectures = new List<Lecture>();
-departament1.Students = new List<Student>(); 
+    departament1.Lectures.Add(new Lecture { Name = "Dirbtinis intelektas" });
+    departament1.Students.Add(new Student() { Name = "Aiva", Surname = "Rause", DateOfBirth = new DateTime(2004, 01, 03) });
+    dbContext.Departaments.Add(departament1);
+    dbContext.SaveChanges();
 
-departament1.Lectures.Add(new Lecture { Name = "Dirbtinis intelektas2" });
-departament1.Students.Add(new Student() { Name = "AVaiva", Surname = "APrause", DateOfBirth = new DateTime(2003, 01, 03) });
-dbContext.Departaments.Add(departament1);
-dbContext.SaveChanges();
+}
 
-*/
 void ConsoleStudentsOfDepartament()
 {
     Console.WriteLine("6. Students of department please choose (2,3,4,8,9):");
     int dp = int.Parse(Console.ReadLine());
-    var students = dbContext.Students.Where(x => x.DepartamentId == dp).Select(xa => xa.Name);
+    var studentsName = dbContext.Students.Where(n => n.DepartamentId == dp).Select(na => na.Name);
+    var studentsSurname = dbContext.Students.Where(x => x.DepartamentId == dp).Select(sa => sa.Surname);
 
-    foreach (var item in students)
+    foreach (var item in studentsName)
     {
         Console.WriteLine(item);
     }
