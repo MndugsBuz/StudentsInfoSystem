@@ -24,10 +24,25 @@ dbContext.Departaments.Add(departament1);
 dbContext.SaveChanges();
 
 */
-
-void ConsoleDepartamentLectures()
+void ConsoleStudentsOfDepartament()
 {
-    Console.WriteLine("Lectures of department please choose (2,3,4,8,9):");
+    Console.WriteLine("6. Students of department please choose (2,3,4,8,9):");
+    int dp = int.Parse(Console.ReadLine());
+    var students = dbContext.Students.Where(x => x.DepartamentId == dp).Select(xa => xa.Name);
+
+    foreach (var item in students)
+    {
+        Console.WriteLine(item);
+    }
+
+    Console.WriteLine("********");
+}
+
+
+
+void ConsoleLecturesOfDepartament()
+{
+    Console.WriteLine("7. Lectures of department please choose (2,3,4,8,9):");
     int dp = int.Parse(Console.ReadLine());
     var consoleresult = dbContext.Departaments.Include(x => x.Lectures).Where(d => d.Id == dp).FirstOrDefault();
     var dplectures = consoleresult.Lectures;
@@ -52,7 +67,7 @@ void ConsoleLecturesByStudent()
         Console.WriteLine();
     }
 
-    Console.WriteLine("Lectures of student please choose Student ID:");
+    Console.WriteLine("8. Lectures of student please choose Student ID:");
     int st = int.Parse(Console.ReadLine());
     var studentDep = dbContext.Students.Where(x => x.Id == st).Select(x => x.DepartamentId).FirstOrDefault();
     var result = dbContext.Departaments.Include(d => d.Lectures).Include(d => d.Students).Where(x => x.Id == studentDep).FirstOrDefault();
@@ -67,8 +82,9 @@ void ConsoleLecturesByStudent()
 
 }
 
-//ConsoleDepartamentLectures();
+ConsoleLecturesOfDepartament();
 ConsoleLecturesByStudent();
+ConsoleStudentsOfDepartament();
 
 
 
