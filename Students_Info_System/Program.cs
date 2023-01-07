@@ -95,14 +95,14 @@ void CreateNewLecturesToNewDepartament()
     Console.WriteLine("3. Creating new Lectures...");
     dbContext.AddRange
                (
-                    new Lecture { Name = lectureName, Departaments = new List<Departament> { departament } },
+                    new Lecture { Name = lectureName, Departaments = new List<Departament> { departament } }
                 );
     dbContext.SaveChanges();
 }
 
 void CreateNewLecturesToExistingDepartament()
 { 
-    Console.WriteLine("3.1. List of Departaments:");
+    Console.WriteLine("3.1.1 List of Departaments:");
     var consoleresult = dbContext.Departaments;
     Console.WriteLine("| Departament ID | Departament Name | Departament City | Departamen Address");
     foreach (var item in consoleresult)
@@ -114,12 +114,12 @@ void CreateNewLecturesToExistingDepartament()
         Console.WriteLine();
     }
 
-    Console.WriteLine("3.1. Please choose Departament ID:");
+    Console.WriteLine("3.1.1 Please choose Departament ID:");
     int dpId = int.Parse(Console.ReadLine());
 
-    Console.WriteLine("3.1. Creating new departament...");
+   // Console.WriteLine("3.1.1 Creating new departament...");
    // var departament = new Departament { Name = "Informatika", City = "Vilnius", Address = "Savanorių g. 222" };
-    Console.WriteLine("3.1 Please Enter Lecture Name");
+    Console.WriteLine("3.1.1 Please Enter New Lecture Name");
     string lectureName = Console.ReadLine();
     dbContext.AddRange
                (
@@ -211,8 +211,8 @@ void ConsoleLecturesByStudent()
 
 
 //CreateNewStudentToExistingDepartament();
-//CreateNewLecturesToExistingDepartament();
-CreateNewLecturesToNewDepartament();
+CreateNewLecturesToExistingDepartament();
+//CreateNewLecturesToNewDepartament();
 //CreateNewDepartament();
 // ConsoleLecturesOfDepartament();
 // ConsoleLecturesByStudent();
