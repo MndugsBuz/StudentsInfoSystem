@@ -79,20 +79,24 @@ void CreateNewStudentToExistingDepartament()
 
 void CreateNewLecturesToNewDepartament()
 {
-    Console.WriteLine("3. Creating new departament...");
-    var departament = new Departament { Name = "Informatika", City = "Vilnius", Address = "Savanorių g. 222" };
+    Console.WriteLine("3.(1,2,3) Create a New department:");
+    Console.WriteLine("3.1. Please enter departament name:");
+    string dpName = Console.ReadLine();
+    Console.WriteLine("3.2. Please enter departament address (City):");
+    string dpCity = Console.ReadLine();
+    Console.WriteLine("3.3. Please enter departament address (Street name and number):");
+    string dpAddress = Console.ReadLine();
+
+    var departament = new Departament { Name = dpName, City = dpCity, Address = dpAddress };
+
+    Console.WriteLine("3.1. Please enter Lecture name:");
+    string lectureName = Console.ReadLine();
+
     Console.WriteLine("3. Creating new Lectures...");
     dbContext.AddRange
                (
-                    new Lecture { Name = "Dirbtinis intelektas", Departaments = new List<Departament> { departament } },
-                    new Lecture { Name = "Informacinės sistemos", Departaments = new List<Departament> { departament } },
-                    new Lecture { Name = "Informatika", Departaments = new List<Departament> { departament } },
-                    new Lecture { Name = "Informatikos inžinerija", Departaments = new List<Departament> { departament } },
-                    new Lecture { Name = "Informatikos inžinerija", Departaments = new List<Departament> { departament } },
-                    new Lecture { Name = "Multimedijos technologijos", Departaments = new List<Departament> { departament } },
-                    new Lecture { Name = "Programų sistemos", Departaments = new List<Departament> { departament } }
+                    new Lecture { Name = lectureName, Departaments = new List<Departament> { departament } },
                 );
-
     dbContext.SaveChanges();
 }
 
@@ -103,7 +107,7 @@ void CreateNewLecturesToExistingDepartament()
     Console.WriteLine("| Departament ID | Departament Name | Departament City | Departamen Address");
     foreach (var item in consoleresult)
     {
-        Console.Write(item.Id + " | ");
+        Console.Write(item.Id + " | ");   
         Console.Write(item.Name + " | ");
         Console.Write(item.City + " |  ");
         Console.Write(item.Address + " |  ");
@@ -115,11 +119,12 @@ void CreateNewLecturesToExistingDepartament()
 
     Console.WriteLine("3.1. Creating new departament...");
    // var departament = new Departament { Name = "Informatika", City = "Vilnius", Address = "Savanorių g. 222" };
-    Console.WriteLine("3.1 Creating new Lectures...");
+    Console.WriteLine("3.1 Please Enter Lecture Name");
+    string lectureName = Console.ReadLine();
     dbContext.AddRange
                (
-                    new Lecture { Name = "Dirbtinis intelektas", Departaments = new List<Departament> { departament } },
-                    //new Lecture { Name = "Informacinės sistemos", Departaments = new List<Departament> { departament } },
+                   // new Lecture { Name = lectureName, DepartamentId = dpId }
+                    //new Lecture { Name = lectureName, Departaments = new List<Departament> { dpId } }
                     //new Lecture { Name = "Informatika", Departaments = new List<Departament> { departament } },
                     //new Lecture { Name = "Informatikos inžinerija", Departaments = new List<Departament> { departament } },
                     //new Lecture { Name = "Informatikos inžinerija", Departaments = new List<Departament> { departament } },
@@ -206,7 +211,8 @@ void ConsoleLecturesByStudent()
 
 
 //CreateNewStudentToExistingDepartament();
-CreateNewLecturesToExistingDepartament();
+//CreateNewLecturesToExistingDepartament();
+CreateNewLecturesToNewDepartament();
 //CreateNewDepartament();
 // ConsoleLecturesOfDepartament();
 // ConsoleLecturesByStudent();

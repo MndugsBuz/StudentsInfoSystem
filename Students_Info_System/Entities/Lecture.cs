@@ -11,7 +11,6 @@ namespace Students_Info_System.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Departament> Departaments { get; set; }
-
         public Lecture ()
          {
          }
