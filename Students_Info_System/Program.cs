@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Runtime.Intrinsics.Arm;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using System.Linq;
 
 // See https://aka.ms/new-console-template for more information
 Console.WriteLine("Students Info System");
@@ -142,15 +143,9 @@ void TransferStudentToAnotherDepartament ()
         Console.WriteLine();
     }
 
-    Console.WriteLine("5. Students of department please choose Departament ID (2,3,4,8,9...):");
+    Console.WriteLine("5. Students of department. Please choose Departament ID (2,3,4,8,9...):");
     int dpId = int.Parse(Console.ReadLine());
-
-    // var studentsName = dbContext.Students.Where(n => n.DepartamentId == dpId).Select(na => na.Name);
-    // var studentsSurname = dbContext.Students.Where(x => x.DepartamentId == dpId).Select(sa => sa.Surname);
-
-    // var studentDep = dbContext.Students.Where(x => x.Id == dpId).Select(x => x.DepartamentId).FirstOrDefault();
-    //var result = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == studentDep).FirstOrDefault();
-
+    
     var result = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == dpId).FirstOrDefault();
     
     var students = result.Students;
@@ -166,8 +161,25 @@ void TransferStudentToAnotherDepartament ()
     }
     Console.WriteLine("********");
 
-    Console.WriteLine("5. Move Student To another Departament please choose Student ID:");
+    Console.WriteLine("5. Move Student To another Departament. Please choose Student ID:");
     int stId = int.Parse(Console.ReadLine());
+
+    var student = dbContext.Students.Where(n => n.DepartamentId == dpId).Where(na => na.Id == stId).Single();
+
+    Console.Write(student.Id + " ");
+    Console.Write(student.Name + " ");
+    Console.Write(student.Surname + " | " );
+    Console.Write(student.DateOfBirth + " | ");
+    Console.WriteLine();   
+
+    Console.WriteLine("5. New studet department. Please choose departament ID (2,3,4,8,9...):");
+    int newDpId = int.Parse(Console.ReadLine());
+
+    dbContext.AddRange
+       (
+         new Student() { Name = student.Name, Surname = student.Surname, DateOfBirth = new DateTime(1999, 02, 16), DepartamentId = newDpId }
+       );
+    dbContext.SaveChanges();
 }
 
 void ConsoleStudentsOfDepartament()
