@@ -94,7 +94,7 @@ void CreateNewLecturesToNewDepartament()
 
     Console.WriteLine("3. Creating new Lectures...");
     dbContext.AddRange
-               (
+                (
                     new Lecture { Name = lectureName, Departaments = new List<Departament> { departament } }
                 );
     dbContext.SaveChanges();
@@ -117,20 +117,13 @@ void CreateNewLecturesToExistingDepartament()
     Console.WriteLine("3.1.1 Please choose Departament ID:");
     int dpId = int.Parse(Console.ReadLine());
 
-   // Console.WriteLine("3.1.1 Creating new departament...");
-   // var departament = new Departament { Name = "Informatika", City = "Vilnius", Address = "Savanorių g. 222" };
+    var consoleResultDpId = dbContext.Departaments.Include(x => x.Lectures).Where(d => d.Id == dpId).FirstOrDefault();
     Console.WriteLine("3.1.1 Please Enter New Lecture Name");
     string lectureName = Console.ReadLine();
     dbContext.AddRange
                (
-                   // new Lecture { Name = lectureName, DepartamentId = dpId }
-                    //new Lecture { Name = lectureName, Departaments = new List<Departament> { dpId } }
-                    //new Lecture { Name = "Informatika", Departaments = new List<Departament> { departament } },
-                    //new Lecture { Name = "Informatikos inžinerija", Departaments = new List<Departament> { departament } },
-                    //new Lecture { Name = "Informatikos inžinerija", Departaments = new List<Departament> { departament } },
-                    //new Lecture { Name = "Multimedijos technologijos", Departaments = new List<Departament> { departament } },
-                    //new Lecture { Name = "Programų sistemos", Departaments = new List<Departament> { departament } }
-                );
+                    new Lecture { Name = lectureName, Departaments = new List<Departament> { consoleResultDpId } }               
+               );
 
     dbContext.SaveChanges();
 }
@@ -139,16 +132,7 @@ void ConsoleStudentsOfDepartament()
 {
     Console.WriteLine("6. Students of department please choose (2,3,4,8,9):");
     int dp = int.Parse(Console.ReadLine());
-   
-    
-    //Student students = new Student();
-    //students = {
-    //    dbContext.Students.Where(n => n.DepartamentId == dp).Select(na => na.Name);
-    //    dbContext.Students.Where(s => s.DepartamentId == dp).Select(sa => sa.Surname);
-    //    dbContext.Students.Where(d => d.DepartamentId == dp).Select(db => db.DateOfBirth);
-
-    //};
-
+  
     var studentsName = dbContext.Students.Where(n => n.DepartamentId == dp).Select(na => na.Name);
     var studentsSurname = dbContext.Students.Where(x => x.DepartamentId == dp).Select(sa => sa.Surname);
 
