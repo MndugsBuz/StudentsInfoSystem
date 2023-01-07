@@ -179,7 +179,33 @@ void TransferStudentToAnotherDepartament ()
        (
          new Student() { Name = student.Name, Surname = student.Surname, DateOfBirth = new DateTime(1999, 02, 16), DepartamentId = newDpId }
        );
+
+    var studentToRemove = dbContext.Students.Where(n => n.DepartamentId == dpId).Where(na => na.Id == stId).Single();
+    if (studentToRemove != null)
+    {
+        dbContext.Students.Remove(studentToRemove);
+    }
+
     dbContext.SaveChanges();
+
+    Console.WriteLine("5. List Students department number:  " + newDpId);
+
+    var resultNew = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == dpId).FirstOrDefault();
+
+    var studentsNew = result.Students;
+    Console.WriteLine("| Student ID | Student Name | Student Surname | Student Data of Birth |");
+
+    foreach (var item in studentsNew)
+    {
+        Console.Write(item.Id + " ");
+        Console.Write(item.Name + " ");
+        Console.Write(item.Surname + " ");
+        Console.WriteLine(item.DateOfBirth + " ");
+        Console.WriteLine();
+    }
+    Console.WriteLine("********");
+    Console.WriteLine("Press any key to exit");
+    Console.ReadLine();
 }
 
 void ConsoleStudentsOfDepartament()
