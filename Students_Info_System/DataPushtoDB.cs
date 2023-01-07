@@ -12,7 +12,7 @@ namespace Students_Info_System
 
         /*
 
-         var departament1 = new Departament { Name = "Informatikos fakultetas", City = "Kaunas", Address = "Studentų g. 50-412" };
+        
          var departament2 = new Departament { Name = "Matematikos ir gamtos mokslų fakultetas", City = "Kaunas", Address = "Studentų g. 50-218" };
 
            dbContext.AddRange
@@ -216,7 +216,6 @@ var departament3 = new Departament { Name = "CHEMINĖS TECHNOLOGIJOS FAKULTETAS"
         */
 
         //dbContext.Students.Add(new Student("Vidas", "Jonaitis", new DateTime(2000, 02, 23)));
-
         //departament1.Students.AddRange(studentslist1);
         //dbContext.Departaments.AddRange(departament1);
         //dbContext.SaveChanges();

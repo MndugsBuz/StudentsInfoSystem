@@ -19,6 +19,12 @@ namespace Students_Info_System.Entities
         {
         }
 
+        public Departament(int id, List<Student> students)
+        {
+            this.Id = Id;
+            this.Students = new List<Student>();
+        }
+
         public Departament(string name, string city, string address)
         {
             this.Id = Id;
