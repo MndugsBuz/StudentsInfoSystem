@@ -49,7 +49,7 @@ void CreateNewStudentToExistingDepartament()
 {
     Console.WriteLine("List of Departaments:");
     var consoleresult = dbContext.Departaments;
-    Console.WriteLine("| Departament ID | Departament Name | Departament City | Departamen Address");
+    Console.WriteLine("| Departament ID | Departament Name | Departament City | Departament Address");
     foreach (var item in consoleresult)
     {
         Console.Write(item.Id + " | ");
@@ -59,7 +59,7 @@ void CreateNewStudentToExistingDepartament()
         Console.WriteLine();
     }
 
-    Console.WriteLine("2. Please choose Departament ID:");
+    Console.WriteLine("2. and 4.  Please choose Departament ID:");
     int dpId = int.Parse(Console.ReadLine());
   
     Console.WriteLine("2.(1,2,3) Create a New Student to existing Departament:");
@@ -104,7 +104,7 @@ void CreateNewLecturesToExistingDepartament()
 { 
     Console.WriteLine("3.1.1 List of Departaments:");
     var consoleresult = dbContext.Departaments;
-    Console.WriteLine("| Departament ID | Departament Name | Departament City | Departamen Address");
+    Console.WriteLine("| Departament ID | Departament Name | Departament City | Departament Address");
     foreach (var item in consoleresult)
     {
         Console.Write(item.Id + " | ");   
@@ -117,35 +117,84 @@ void CreateNewLecturesToExistingDepartament()
     Console.WriteLine("3.1.1 Please choose Departament ID:");
     int dpId = int.Parse(Console.ReadLine());
 
-    var consoleResultDpId = dbContext.Departaments.Include(x => x.Lectures).Where(d => d.Id == dpId).FirstOrDefault();
+    var resultDpId = dbContext.Departaments.Include(x => x.Lectures).Where(d => d.Id == dpId).FirstOrDefault();
     Console.WriteLine("3.1.1 Please Enter New Lecture Name");
     string lectureName = Console.ReadLine();
     dbContext.AddRange
                (
-                    new Lecture { Name = lectureName, Departaments = new List<Departament> { consoleResultDpId } }               
+                    new Lecture { Name = lectureName, Departaments = new List<Departament> { resultDpId } }               
                );
 
     dbContext.SaveChanges();
 }
 
-void ConsoleStudentsOfDepartament()
+void TransferStudentToAnotherDepartament ()
 {
-    Console.WriteLine("6. Students of department please choose (2,3,4,8,9):");
-    int dp = int.Parse(Console.ReadLine());
-  
-    var studentsName = dbContext.Students.Where(n => n.DepartamentId == dp).Select(na => na.Name);
-    var studentsSurname = dbContext.Students.Where(x => x.DepartamentId == dp).Select(sa => sa.Surname);
 
-    //for (var i = 0; i < studentsName.Count; i++)
-    //{
-    //    Console.WriteLine(studentsName);
-    //}
-
-    foreach (var item in studentsName)
+    Console.WriteLine("5. List of Departaments:");
+    var consoleresult = dbContext.Departaments;
+    Console.WriteLine("| No | Departament ID | Departament Name | Departament City | Departament Address");
+    foreach (var item in consoleresult)
     {
-        Console.WriteLine(item);
+        Console.Write(item.Id + " | ");
+        Console.Write(item.Name + " | ");
+        Console.Write(item.City + " |  ");
+        Console.Write(item.Address + " |  ");
+        Console.WriteLine();
     }
 
+    Console.WriteLine("5. Students of department please choose Departament ID (2,3,4,8,9...):");
+    int dpId = int.Parse(Console.ReadLine());
+
+    // var studentsName = dbContext.Students.Where(n => n.DepartamentId == dpId).Select(na => na.Name);
+    // var studentsSurname = dbContext.Students.Where(x => x.DepartamentId == dpId).Select(sa => sa.Surname);
+
+    // var studentDep = dbContext.Students.Where(x => x.Id == dpId).Select(x => x.DepartamentId).FirstOrDefault();
+    //var result = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == studentDep).FirstOrDefault();
+
+    var result = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == dpId).FirstOrDefault();
+    
+    var students = result.Students;
+
+    foreach (var item in students)
+    {
+        Console.Write(item.Name);
+        Console.Write(item.Surname);
+        Console.WriteLine(item.DateOfBirth + " ");
+        Console.WriteLine();
+    }
+    Console.WriteLine("********");
+
+}
+
+
+void ConsoleStudentsOfDepartament()
+{ 
+    Console.WriteLine("6. List of Departaments:");
+    var consoleresult = dbContext.Departaments;
+    Console.WriteLine("| No | Departament ID | Departament Name | Departament City | Departament Address");
+    foreach (var item in consoleresult)
+    {
+        Console.Write(item.Id + " | ");
+        Console.Write(item.Name + " | ");
+        Console.Write(item.City + " |  ");
+        Console.Write(item.Address + " |  ");
+        Console.WriteLine();
+    }
+
+    Console.WriteLine("6. Students of department please choose (2,3,4,8,9...):");
+    int dpId = int.Parse(Console.ReadLine());
+
+    var result = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == dpId).FirstOrDefault();
+    var students = result.Students;
+
+    foreach (var item in students)
+    {
+        Console.Write(item.Name + " ");
+        Console.Write(item.Surname + " ");
+        Console.WriteLine(item.DateOfBirth + " ");
+        Console.WriteLine();
+    }
     Console.WriteLine("********");
 }
 
@@ -179,8 +228,8 @@ void ConsoleLecturesByStudent()
     }
 
     Console.WriteLine("8. Lectures of student please choose Student ID:");
-    int st = int.Parse(Console.ReadLine());
-    var studentDep = dbContext.Students.Where(x => x.Id == st).Select(x => x.DepartamentId).FirstOrDefault();
+    int stId = int.Parse(Console.ReadLine());
+    var studentDep = dbContext.Students.Where(x => x.Id == stId).Select(x => x.DepartamentId).FirstOrDefault();
     var result = dbContext.Departaments.Include(d => d.Lectures).Include(d => d.Students).Where(x => x.Id == studentDep).FirstOrDefault();
 
     var lectures = result.Lectures;
@@ -195,12 +244,13 @@ void ConsoleLecturesByStudent()
 
 
 //CreateNewStudentToExistingDepartament();
-CreateNewLecturesToExistingDepartament();
+//CreateNewLecturesToExistingDepartament();
+ //TransferStudentToAnotherDepartament();
 //CreateNewLecturesToNewDepartament();
 //CreateNewDepartament();
 // ConsoleLecturesOfDepartament();
 // ConsoleLecturesByStudent();
-// ConsoleStudentsOfDepartament();
+ ConsoleStudentsOfDepartament();
 
 
 
