@@ -124,7 +124,6 @@ void CreateNewLecturesToExistingDepartament()
                (
                     new Lecture { Name = lectureName, Departaments = new List<Departament> { resultDpId } }               
                );
-
     dbContext.SaveChanges();
 }
 
@@ -155,24 +154,28 @@ void TransferStudentToAnotherDepartament ()
     var result = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == dpId).FirstOrDefault();
     
     var students = result.Students;
+    Console.WriteLine("| Student ID | Student Name | Student Surname | Student Data of Birth |");
 
     foreach (var item in students)
     {
-        Console.Write(item.Name);
-        Console.Write(item.Surname);
+        Console.Write(item.Id + " ");
+        Console.Write(item.Name + " ");
+        Console.Write(item.Surname+ " ");
         Console.WriteLine(item.DateOfBirth + " ");
         Console.WriteLine();
     }
     Console.WriteLine("********");
 
+    Console.WriteLine("5. Move Student To another Departament please choose Student ID:");
+    int stId = int.Parse(Console.ReadLine());
 }
-
 
 void ConsoleStudentsOfDepartament()
 { 
     Console.WriteLine("6. List of Departaments:");
     var consoleresult = dbContext.Departaments;
     Console.WriteLine("| No | Departament ID | Departament Name | Departament City | Departament Address");
+   
     foreach (var item in consoleresult)
     {
         Console.Write(item.Id + " | ");
@@ -187,6 +190,8 @@ void ConsoleStudentsOfDepartament()
 
     var result = dbContext.Departaments.Include(d => d.Students).Where(x => x.Id == dpId).FirstOrDefault();
     var students = result.Students;
+
+    Console.WriteLine("| Student ID | Student Name | Student Surname | Student Data of Birth |");
 
     foreach (var item in students)
     {
@@ -245,12 +250,12 @@ void ConsoleLecturesByStudent()
 
 //CreateNewStudentToExistingDepartament();
 //CreateNewLecturesToExistingDepartament();
- //TransferStudentToAnotherDepartament();
+TransferStudentToAnotherDepartament();
 //CreateNewLecturesToNewDepartament();
 //CreateNewDepartament();
-// ConsoleLecturesOfDepartament();
-// ConsoleLecturesByStudent();
- ConsoleStudentsOfDepartament();
+//ConsoleLecturesOfDepartament();
+//ConsoleLecturesByStudent();
+// ConsoleStudentsOfDepartament();
 
 
 
